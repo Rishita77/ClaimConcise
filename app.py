@@ -12,7 +12,6 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Check file extension
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -47,7 +46,7 @@ def ask_question():
     question = request.form['question']
     document_summary = request.form['document_summary']
     
-    # Create a prompt that provides the document summary and asks the question directly
+
     follow_up_prompt = f"""
     The following is a summary of an insurance policy document:
     {document_summary}
@@ -58,7 +57,7 @@ def ask_question():
     """
     open_api_key = get_openai_key()
     os.environ["OPENAI_API_KEY"] = open_api_key
-    # Initialize the language model for Q&A
+    
     llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
     response = llm(follow_up_prompt)  # Pass the context directly to the model
 
