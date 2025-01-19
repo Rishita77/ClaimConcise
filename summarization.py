@@ -3,12 +3,12 @@ from PyPDF2 import PdfReader
 from langchain_community.chat_models import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
-
-def get_openai_key():
-    return "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"
+from dotenv import load_dotenv
 
 def summarize_document(file_path):
-    open_api_key = get_openai_key()
+   
+    load_dotenv()
+    open_api_key = os.getenv("OPENAI_API_KEY")
     os.environ["OPENAI_API_KEY"] = open_api_key
 
     pdfreader = PdfReader(file_path)
